@@ -2,6 +2,8 @@
 
 AI Town is a virtual town where AI characters live, chat, and socialize. This guide will help you set up AI Town on a Windows machine using the Windows Subsystem for Linux (WSL). You will connect to Ollama running on your Windows machine and use Convex for the backend.
 
+![Screenshot](wsl-setup-for-AITOWN.png)
+
 ## Prerequisites
 
 1. **Windows 10/11 with WSL2 installed**
