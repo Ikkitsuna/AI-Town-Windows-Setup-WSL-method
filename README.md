@@ -18,72 +18,72 @@ First, you need to install WSL2. Follow [this guide](https://docs.microsoft.com/
 
 Open your WSL terminal (Ubuntu) and update your packages:
 
-\`\`\`bash
+```bash
 sudo apt update
-\`\`\`
+
 
 ### 3. Install NVM and Node.js
 
 NVM (Node Version Manager) helps manage multiple versions of Node.js. Install NVM and Node.js 18 (the stable version):
 
-\`\`\`bash
+```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 source ~/.bashrc
 nvm install 18
 nvm use 18
-\`\`\`
+
 
 ### 4. Install Python and Pip
 
 Python is required for some dependencies. Install Python and Pip:
 
-\`\`\`bash
+```bash
 sudo apt-get install python3 python3-pip
 sudo ln -s /usr/bin/python3 /usr/bin/python
-\`\`\`
+
 
 ### 5. Install Additional Tools
 
 Install \`unzip\` and \`socat\`:
 
-\`\`\`bash
+```bash
 sudo apt install unzip socat
-\`\`\`
+
 
 ### 6. Install Rust and Cargo
 
 Cargo is the Rust package manager. Install Rust and Cargo:
 
-\`\`\`bash
+```bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source $HOME/.cargo/env
-\`\`\`
+
 
 ### 7. Install \`just\` with Cargo
 
 \`just\` is used to run commands. Install it with Cargo:
 
-\`\`\`bash
+```bash
 cargo install just
 export PATH="$HOME/.cargo/bin:$PATH"
 just --version
-\`\`\`
+
 
 ### 8. Configure \`socat\` to Bridge Ports for Ollama
 
 Run the following command to bridge ports, allowing communication between Convex and Ollama:
 
-\`\`\`bash
+```bash
 socat TCP-LISTEN:11434,fork TCP:$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):11434 &
-\`\`\`
+
 
 Test if it's working:
 
-\`\`\`bash
+```bash
 curl http://127.0.0.1:11434
-\`\`\`
+
 
 If it responds OK, the Ollama API is accessible.
 
@@ -91,53 +91,53 @@ If it responds OK, the Ollama API is accessible.
 
 Clone the AI Town repository from GitHub:
 
-\`\`\`bash
+```bash
 git clone https://github.com/a16z-infra/ai-town.git
 cd ai-town
-\`\`\`
+
 
 ### 10. Install NPM Packages
 
 Install the necessary npm packages:
 
-\`\`\`bash
+```bash
 npm install
-\`\`\`
+
 
 ### 11. Install Precompiled Convex
 
 Download and install the precompiled version of Convex:
 
-\`\`\`bash
+```bash
 curl -L -O https://github.com/get-convex/convex-backend/releases/download/precompiled-2024-06-28-91981ab/convex-local-backend-x86_64-unknown-linux-gnu.zip
 unzip convex-local-backend-x86_64-unknown-linux-gnu.zip
 rm convex-local-backend-x86_64-unknown-linux-gnu.zip
 chmod +x convex-local-backend
-\`\`\`
+
 
 ### 12. Launch Convex
 
 In a separate terminal, launch Convex:
 
-\`\`\`bash
+```bash
 ./convex-local-backend
-\`\`\`
+
 
 ### 13. Configure Convex to Use Ollama
 
 Set the Ollama host in Convex:
 
-\`\`\`bash
+```bash
 just convex env set OLLAMA_HOST http://localhost:11434
-\`\`\`
+
 
 ### 14. Launch AI Town
 
 Finally, launch AI Town:
 
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+
 
 Visit \`http://localhost:5173\` in your browser to see AI Town in action.
 
@@ -146,18 +146,18 @@ Visit \`http://localhost:5173\` in your browser to see AI Town in action.
 If you need to restart the services:
 
 1. Ensure \`socat\` is running:
-   \`\`\`bash
+   ```bash
    socat TCP-LISTEN:11434,fork TCP:$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):11434 &
-   \`\`\`
+   
 
 2. Launch Convex:
-   \`\`\`bash
+   ```bash
    ./convex-local-backend
-   \`\`\`
+   
 
 3. Launch AI Town:
-   \`\`\`bash
+   ```bash
    npm run dev
-   \`\`\`
+   
 
 Enjoy your AI Town experience! If you encounter any issues, feel free to reach out for support. 🌟
